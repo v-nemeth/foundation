@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title = content_for(:title)
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    meta name="mobile-web-app-capable" content="yes"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = yield :head
+
+    / Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!)
+    / = tag.link rel: "manifest", href: pwa_manifest_path(format: :json)
+
+    link rel="icon" href="/icon.png" type="image/png"
+    link rel="icon" href="/icon.svg" type="image/svg+xml"
+    link rel="apple-touch-icon" href="/icon.png"
+
+    / Includes all stylesheet files in app/assets/stylesheets
+    = stylesheet_link_tag :app, "data-turbo-track": "reload"
+    = javascript_importmap_tags
+
+  body.drawer.bg-base-200.lg:drawer-closed.min-h-screen
+    input#my-drawer.drawer-toggle type="checkbox"
+    main.drawer-content
+      header.flex.items-center.gap-2.lg:gap-4.p-4
+        label.btn.btn-square.btn-ghost.drawer-button for="my-drawer" BUTTON
+        .grow              
+          h1.lg:text-2xl.lg:font-light Dashboard
+
+      .flex.justify-center
+        .grid.xl:grid-cols-12.grid-cols-6.gap-y-12.p-4.xl:gap-x-12.xl:p-10.w-full class="grid-rows-[min-content]"
+          = yield
+    aside.drawer-side.z-10
+      label.drawer-overlay for="my-drawer"
+      nav.bg-base-100.flex.min-h-screen.w-72.flex-col.gap-2.overflow-y-auto.px-6.py-10
+        .mx-4.flex.items-center.gap-2.font-black My Project
+        ul.menu.w-full
+          li = link_to :landing_path

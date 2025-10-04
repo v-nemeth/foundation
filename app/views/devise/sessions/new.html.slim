@@ -1,0 +1,17 @@
+section.card.bg-base-100.col-span-4.md:col-start-3.2xl:col-start-5
+  .card-body.p-12
+    h1.text-2xl Login
+    = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
+      fieldset.fieldset.gap-y-4
+        .div
+          = f.label :email, class: "label" 
+          = f.email_field :email, class: "input w-full"      
+        .div
+          = f.label :password, class: "label"
+          = f.password_field :password, class: "input w-full"
+        .flex.justify-between.items-center
+          .label
+            = f.checkbox :remember_me, class: "checkbox" 
+            p Remember me
+          = link_to "Forgot Password", new_password_path(resource), class: "link"
+        = f.submit "Log in", class: "btn btn-primary mt-3 rounded-4xl"
