@@ -65,3 +65,5 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem "slim", "~> 5.2"
